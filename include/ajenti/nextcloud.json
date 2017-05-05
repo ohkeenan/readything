@@ -1,0 +1,70 @@
+{
+    "ssl_header": "",
+    "maintenance_mode": false,
+    "locations": [
+        {
+            "custom_conf_override": false,
+            "path_append_pattern": false,
+            "pattern": "[^/]\\.php(/|$)",
+            "custom_conf": "fastcgi_split_path_info ^(.+\\.php)(/.*)$;\n", 
+            "path": "",
+            "match": "regex",
+            "backend": {
+                "type": "php-fcgi",
+                "params": {
+                    "php_admin_values": "open_basedir = none;",
+                    "php_flags": "",
+                    "pm": "dynamic"
+                }
+            }
+        }
+    ],
+    "custom_conf": "",
+    "ssl_stapling_verify": "",
+    "owner": "root",
+    "custom_conf_toplevel": "",
+    "ssl_session_cache": "",
+    "ssl_key_path": "",
+    "ssl_protocols": "",
+    "ssl_prefer_server_ciphers": "",
+    "ssl_diffie_hellman_group": "",
+    "ssl_session_timeout": "",
+    "ssl_cert_path": "",
+    "name": "NextCloud",
+    "ssl_ciphers": "",
+    "ssl_stapling": "",
+    "enabled": true,
+    "extensions": {
+        "ajenti.plugins.vh.processes.ProcessesExtension": {
+            "processes": []
+        },
+        "ajenti.plugins.vh-mysql.mysql.MySQLExtension": {
+            "users": [],
+            "databases": []
+        }
+    },
+    "domains": [
+        {
+            "domain": "cloud.example.com"
+        }
+    ],
+    "root": "/srv/nextcloud",
+    "ports": [
+        {
+            "spdy": false,
+            "default": false,
+            "ssl": true,
+            "host": "*",
+            "http2": false,
+            "port": 443
+        },
+        {
+            "spdy": false,
+            "default": false,
+            "ssl": false,
+            "host": "*",
+            "http2": false,
+            "port": 80
+        }
+    ]
+}

@@ -1,0 +1,41 @@
+{
+    "ssl_header": "",
+    "maintenance_mode": false,
+    "locations": [],
+    "custom_conf": "",
+    "ssl_stapling_verify": "",
+    "owner": "root",
+    "custom_conf_toplevel": "",
+    "ssl_session_cache": "",
+    "ssl_key_path": "",
+    "ssl_protocols": "",
+    "ssl_prefer_server_ciphers": "",
+    "ssl_diffie_hellman_group": "",
+    "ssl_session_timeout": "",
+    "ssl_cert_path": "",
+    "name": "example", 
+    "ssl_ciphers": "",
+    "ssl_stapling": "",
+    "enabled": true,
+    "extensions": {
+        "ajenti.plugins.vh.processes.ProcessesExtension": {
+            "processes": []
+        }
+    },
+    "domains": [
+        {
+            "domain": "example.com"
+        }
+    ],
+    "root": "/srv/example.com",
+    "ports": [
+        {
+            "spdy": false,
+            "default": false,
+            "ssl": false,
+            "host": "*",
+            "http2": false,
+            "port": 80
+        }
+    ]
+}
