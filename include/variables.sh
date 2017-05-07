@@ -7,6 +7,11 @@ if [ -z "$1" ]
     DOMAIN="$1"
 fi
 
+
+
+KEY="Kverbr" # Pem key
+SECURITYGROUP="sg-4395102a"
+SUBNET="subnet-2fcc3354"
 CLIENT=$(echo -n "$DOMAIN" | cut -d. -f1)
 CLIENTMD5=$(echo -n "$CLIENT" | md5sum | cut -d ' ' -f1)
 OUTPUT="$DIR/output/$CLIENT"

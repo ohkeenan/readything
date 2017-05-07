@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Usage
+function usage() {
+  printf "Readything usage: \n"
+}
+
 # Get directory
 SCRIPT=$(readlink -f $0)
 DIR=`dirname $SCRIPT`
@@ -41,16 +46,16 @@ aws iam add-role-to-instance-profile \
         --instance-profile-name nw-rt-ip-$CLIENT \
         --role-name nw-rt-$CLIENT
 
-# have to give AWS a few seconds for policies and S3...
-sleep 30s
+# have to give AWS a few seconds for policies/S3
+sleep 20s
 
 # run run run!
 aws ec2 run-instances \
         --image-id ami-0bd66a6f \
         --count 1 \
         --instance-type t2.micro \
-        --key-name Kverbr \
-        --security-group-ids sg-4395102a \
-        --subnet-id subnet-2fcc3354 \
+        --key-name $KEY \
+        --security-group-ids $SECURITYGROUP \
+        --subnet-id $SUBNET \
         --iam-instance-profile Name="nw-rt-ip-$CLIENT" \
         --user-data file://$OUTPUT/userdata.txt

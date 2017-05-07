@@ -11,13 +11,16 @@ Created for AWS EC2 Amazon Linux
 + 99.999999999% durability with Amazon S3
 
 ## What this code does
-+ Create S3 Bucket
++ Create S3 Bucket Label
++ Setup IAM Stuff
+  + Roles, Policies & Instance Profile for EC2 to communicate with S3
 + Create EC2 Instance
-  + Create & Assign Roles
-  + Create Instance Profile (to communicate with S3)
+  + Generate User Data
+  +
 
 ### To do
 + Create initialization routine for fresh AWS account
++ Un-hardcode stuff. Variables/input for AWS subnets and security groups
 + Add checks and get rid of weird workarounds (eg sleeps)
 + LetsEncrypt SSL w/ NGINX
 + Monitoring

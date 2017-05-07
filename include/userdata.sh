@@ -39,7 +39,10 @@ make install
 
 mkdir /mnt/s3
 
-#STOPPED HERE. FIX.
+#Create users and groups
+groupadd www-data -g 140
+useradd -r www-data -u 140 -g 140
+
 groupadd s3fs -g 141
 useradd -r s3fs -u 141 -g 141
 
@@ -47,7 +50,7 @@ useradd -r s3fs -u 141 -g 141
 echo "nw-rt:/users/$CLIENTMD5/  /mnt/s3/  fuse.s3fs    _netdev,allow_other,iam_role=nw-rt-$CLIENT,uid=141,gid=141,umask=007,use_cache=/tmp   0   0" >> /etc/fstab
 mount -a
 
-# Bring PHP to version 7 and install modules
+# Bring PHP to version 7 and install modules for NextCloud
 yum install -y php70-mysqlnd php70-fpm php70-ctype php70-dom php70-gd php70-mbstring php70-pdo php70-iconv php70-json php70-libxml php70-posix php70-zip php70-zlib php70-curl php70-bz2 php70-mcrypt php70-openssl php70-intl php70-fileinfo php70-exif php70-xml php70-imagick php70-json
 pkill php-fpm
 
@@ -58,9 +61,6 @@ ln -s /usr/bin/php7 /etc/alternatives/php
 ln -s /usr/sbin/php-fpm-7.0 /etc/alternatives/php-fpm
 ln -s /etc/rc.d/init.d/php-fpm-7.0 /etc/alternatives/php-fpm-init
 
-touch /var/log/php7-fpm.log
-
-# Databases
 # Start MariaDB
 service mysql start
 
@@ -88,7 +88,6 @@ mv /etc/php-fpm.conf /etc/php-fpm.conf.bak
 
 cp /home/ec2-user/$AJ/php-fpm.conf /etc/php-fpm.conf
 service ajenti restart
-# service php-fpm restart
 
 sleep 10s
 ajenti-ipc v apply
@@ -111,6 +110,7 @@ usermod -aG s3fs www-data
 usermod -aG s3fs ec2-user
 usermod -aG www-data ec2-user
 
+touch /var/log/php7-fpm.log
 chown www-data:www-data /var/log/php7-fpm.log
 
 # Install NextCloud
@@ -138,8 +138,5 @@ sudo -u www-data php /srv/nextcloud/occ maintenance:install --database "mysql" \
         -v
 
 sudo -u www-data php /srv/nextcloud/occ config:system:set trusted_domains 2 --value=cloud.$DOMAIN
-
-# Configuration file
-# /var/www/rainloop/data/_data_/_default_/configs/application.ini
 
 EOF
