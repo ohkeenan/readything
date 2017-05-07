@@ -72,11 +72,3 @@ function randm() {
 MYSQL_ROOT_PASSWORD=$(randm)
 MYSQL_NEXTCLOUD_PASSWORD=$(randm)
 NEXTCLOUD_ADMIN_PASSWORD=$(randm)
-
-cat >> $keepMe <<- EOM
-ReadyThing session for $CLIENT at $(date -u)
-
-MySQL user 'root' password is $MYSQL_ROOT_PASSWORD
-NextCloud user 'admin' password is $NEXTCLOUD_ADMIN_PASSWORD
--------------------------------------------------------------------
-EOM

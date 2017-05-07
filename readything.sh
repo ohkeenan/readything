@@ -54,3 +54,13 @@ aws ec2 run-instances \
         --subnet-id $SUBNET \
         --iam-instance-profile Name="nw-rt-ip-$CLIENT" \
         --user-data file://$OUTPUT/userdata.txt
+
+cat >> $keepMe <<- EOF
+ReadyThing session for $CLIENT at $(date -u) completed.
+
+MySQL user 'root' password is $MYSQL_ROOT_PASSWORD
+NextCloud user 'admin' password is $NEXTCLOUD_ADMIN_PASSWORD
+-------------------------------------------------------------------
+EOF
+
+echo -e "\e[32mReadyThing completed. Session data is located at $keepMe\e[0m"
