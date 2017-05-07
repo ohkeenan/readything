@@ -55,7 +55,7 @@ aws ec2 run-instances \
         --count 1 \
         --instance-type t2.micro \
         --key-name $KEY \
-        --security-group-ids $SECURITYGROUP \
+        --security-group-ids $SGROUP \
         --subnet-id $SUBNET \
         --iam-instance-profile Name="nw-rt-ip-$CLIENT" \
         --user-data file://$OUTPUT/userdata.txt

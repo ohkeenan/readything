@@ -47,7 +47,7 @@ groupadd s3fs -g 141
 useradd -r s3fs -u 141 -g 141
 
 # Mount s3fs
-echo "nw-rt:/users/$CLIENTMD5/  /mnt/s3/  fuse.s3fs    _netdev,allow_other,iam_role=nw-rt-$CLIENT,uid=141,gid=141,umask=007,use_cache=/tmp   0   0" >> /etc/fstab
+echo "nw-rt:/users/$CLIENTSEC/  /mnt/s3/  fuse.s3fs    _netdev,allow_other,iam_role=nw-rt-$CLIENT,uid=141,gid=141,umask=007,use_cache=/tmp   0   0" >> /etc/fstab
 mount -a
 
 # Bring PHP to version 7 and install modules for NextCloud

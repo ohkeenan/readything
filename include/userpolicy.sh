@@ -34,7 +34,7 @@ cat > $OUTPUT/s3-$CLIENT.json <<- EOF
             "Condition": {
                 "StringLike": {
                     "s3:prefix": [
-                        "users/$CLIENTMD5/*"
+                        "users/$CLIENTSEC/*"
                     ]
                 }
             }
@@ -46,7 +46,7 @@ cat > $OUTPUT/s3-$CLIENT.json <<- EOF
             ],
             "Effect": "Allow",
             "Resource": [
-                "arn:aws:s3:::nw-rt/users/$CLIENTMD5/*"
+                "arn:aws:s3:::nw-rt/users/$CLIENTSEC/*"
             ]
         }
     ]
