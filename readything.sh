@@ -1,10 +1,5 @@
 #!/bin/bash
 
-# Usage
-function usage() {
-  printf "Readything usage: \n"
-}
-
 # Get directory
 SCRIPT=$(readlink -f $0)
 DIR=`dirname $SCRIPT`
