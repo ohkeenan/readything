@@ -1,8 +1,8 @@
 Ready Thing
 -----------
-Ready Thing is a tool to create "productivity suites" with user-friendly administration for websites, emails, file sharing and collaboration.
+Ready Thing is a simple shell script to create "productivity suites" with user-friendly administration for websites, emails, file sharing and collaboration.
 
-Created for AWS EC2 Amazon Linux
+Created for AWS EC2 Amazon Linux. Documentation is quite rough, sorry! I'm happy to provide any support possible.
 
 + Administration: Ajenti V
 + Web: NGINX or Apache2
@@ -10,13 +10,19 @@ Created for AWS EC2 Amazon Linux
 + Filesharing & Collaboration: NextCloud
 + 99.999999999% durability with Amazon S3
 
-## What this code does
+## What this script does
 + Create S3 Bucket Label
 + Setup IAM Stuff
   + Roles, Policies & Instance Profile for EC2 to communicate with S3
 + Create EC2 Instance
-  + Generate User Data
-  +
+  + Generate User Data (Initialization script)
+    + Install [Ajenti](http://ajenti.org/) (v1 for now - maybe v2 in future)
+    + Install [S3fs](https://github.com/s3fs-fuse/s3fs-fuse) and mount
+    + Install MariaDB
+    + Install PHP7 (sort of supported with Ajenti with hax)
+    + Install [NextCloud](https://nextcloud.com/) (file sharing and collaboration)
+    + Install [RainLoop](https://www.rainloop.net/) (mail)
+    + More to come...
 
 ### To do
 + Create initialization routine for fresh AWS account
