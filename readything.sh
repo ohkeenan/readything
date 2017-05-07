@@ -23,10 +23,11 @@ DIR=`dirname $SCRIPT`
 # Create Role
 # Check if Role Already Exists
 if [ -z "$(aws iam get-role --role-name nw-rt-$CLIENT | grep RoleId)" ]; then
-  echo "Role does not exist. Creating nw-rt-$CLIENT"
+  echo -ne "Role does not exist."
   aws iam create-role \
           --role-name nw-rt-$CLIENT \
           --assume-role-policy-document file://$OUTPUT/ec2-$CLIENT-trust.json
+  echo -en "\e[32mCreated nw-rt-$CLIENT\e[0m"
 else
   echo "Role nw-rt-$CLIENT exists. Skipping...."
 fi
