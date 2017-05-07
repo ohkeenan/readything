@@ -19,7 +19,7 @@ Created for AWS EC2 Amazon Linux. Documentation is quite rough, sorry! I'm happy
     + Install [Ajenti](http://ajenti.org/) (v1 for now - maybe v2 in future)
     + Install [S3fs](https://github.com/s3fs-fuse/s3fs-fuse) and mount
     + Install MariaDB
-    + Install PHP7 (sort of supported with Ajenti with hax)
+    + Install PHP7 (sort of supported by Ajenti with hax)
     + Install [NextCloud](https://nextcloud.com/) (file sharing and collaboration)
     + Install [RainLoop](https://www.rainloop.net/) (mail)
     + More to come...

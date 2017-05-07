@@ -21,14 +21,26 @@ DIR=`dirname $SCRIPT`
 
 
 # Create Role
-aws iam create-role \
-        --role-name nw-rt-$CLIENT \
-        --assume-role-policy-document file://$OUTPUT/ec2-$CLIENT-trust.json
+# Check if Role Already Exists
+if [ -z "$(aws iam get-role --role-name nw-rt-$CLIENT | grep RoleId)" ]; then
+  echo "Role does not exist. Creating nw-rt-$CLIENT"
+  aws iam create-role \
+          --role-name nw-rt-$CLIENT \
+          --assume-role-policy-document file://$OUTPUT/ec2-$CLIENT-trust.json
+else
+  echo "Role nw-rt-$CLIENT exists. Not creating."
+fi
 
-aws iam put-role-policy \
-        --role-name nw-rt-$CLIENT \
-        --policy-name nw-rt-s3-$CLIENT \
-        --policy-document file://$OUTPUT/s3-$CLIENT.json
+# Check if Policy Already Exists
+if [ -z "$(aws iam get-role-policy --role-name nw-rt-$CLIENT --policy-name nw-rt-s3-$CLIENT |grep ListBucket)" ]; then
+  echo "Policy does not exist. Creating nw-rt-s3-$CLIENT"
+  aws iam put-role-policy \
+          --role-name nw-rt-$CLIENT \
+          --policy-name nw-rt-s3-$CLIENT \
+          --policy-document file://$OUTPUT/s3-$CLIENT.json
+else
+  echo "Policy nw-rt-s3-$CLIENT exists. Not creating."
+fi
 
 aws iam attach-role-policy \
         --policy-arn arn:aws:iam::729480203074:policy/nw-rt-s3-users \
@@ -42,6 +54,7 @@ aws iam add-role-to-instance-profile \
         --role-name nw-rt-$CLIENT
 
 # have to give AWS a few seconds for policies/S3
+echo "sleeping..."
 sleep 20s
 
 # run run run!
