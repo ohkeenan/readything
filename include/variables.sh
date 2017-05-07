@@ -47,7 +47,12 @@ shift "$((OPTIND-1))" # Shift off the options and optional --.
 
 if [[ -z "$DOMAIN" || -z "$KEY" || -z "$SGROUP" || -z "$SUBNET" ]];
   then
-    echo -e "\e[31mERROR: Domain, key, security group and subnet are all required!\e[0m\n"
+    echo -en "\e[31m*** ERROR: "
+    [ -z "$DOMAIN" ] && echo -n "Domain, "
+    [ -z "$KEY" ] && echo -n "Key, "
+    [ -z "$SGROUP" ] && echo -n "Security Group, "
+    [ -z "$SUBNET" ] && echo -n "Subnet, "
+    echo -e "required! ***\e[0m\n"
     show_help
     exit 1
 fi
