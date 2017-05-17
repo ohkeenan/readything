@@ -3,7 +3,7 @@
 # Usage info
 show_help() {
 cat << EOF
-Usage: ${0##*/} [-hv] [-k KEY] [-s SGROUP] [-n SUBNET] [-d DOMAIN]...
+Usage: ${0##*/} [-hv] [-k KEY] [-s SGROUP] [-n SUBNET] [-d DOMAIN] [-b BUCKET]...
 Create EC2 instance
 
     -h          display this help and exit
@@ -11,6 +11,7 @@ Create EC2 instance
     -s SGROUP   security group id
     -n SUBNET   subnet id
     -d DOMAIN   domain (eg ohkeenan.com)
+    -b BUCKET   bucket (eg nw-rt)
     -v          verbose mode. Can be used multiple times for increased
                 verbosity. (does nothing yet)
 EOF
