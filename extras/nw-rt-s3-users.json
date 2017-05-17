@@ -19,7 +19,7 @@
             ],
             "Effect": "Allow",
             "Resource": [
-                "arn:aws:s3:::nw-rt"
+                "arn:aws:s3:::$BUCKET"
             ],
             "Condition": {
                 "StringEquals": {

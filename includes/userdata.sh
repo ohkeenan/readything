@@ -10,6 +10,11 @@ cat > $OUTPUT/userdata.txt <<- EOF
 
 # Update Instance
 yum update -y
+
+# Chef Stuff
+curl -L https://omnitruck.chef.io/install.sh | sudo bash -s -- -v 13.0.118
+mkdir /etc/chef
+
 yum-config-manager --enable epel
 cat > /etc/yum.repos.d/maria.repo << EOG
 [mariadb]
@@ -39,6 +44,7 @@ make install
 
 mkdir /mnt/s3
 
+
 #Create users and groups
 groupadd www-data -g 140
 useradd -r www-data -u 140 -g 140
@@ -47,8 +53,12 @@ groupadd s3fs -g 141
 useradd -r s3fs -u 141 -g 141
 
 # Mount s3fs
-echo "nw-rt:/users/$CLIENTSEC/  /mnt/s3/  fuse.s3fs    _netdev,allow_other,iam_role=nw-rt-$CLIENT,uid=141,gid=141,umask=007,use_cache=/tmp   0   0" >> /etc/fstab
+echo "$BUCKET:/users/$CLIENTSEC/  /mnt/s3/  fuse.s3fs    _netdev,allow_other,iam_role=$BUCKET-$CLIENT,uid=141,gid=141,umask=007,use_cache=/tmp   0   0" >> /etc/fstab
 mount -a
+
+# Chef Stuffs #2
+
+cp /mnt/s3/
 
 # Bring PHP to version 7 and install modules for NextCloud
 yum install -y php70-mysqlnd php70-fpm php70-ctype php70-dom php70-gd php70-mbstring php70-pdo php70-iconv php70-json php70-libxml php70-posix php70-zip php70-zlib php70-curl php70-bz2 php70-mcrypt php70-openssl php70-intl php70-fileinfo php70-exif php70-xml php70-imagick php70-json
@@ -81,23 +91,23 @@ mkdir /srv/$DOMAIN
 echo "It works!" > /srv/$DOMAIN/index.html
 
 # Install websites to Ajenti
-tar xjf /mnt/s3/config/ajenti.tar.bz2 -C /home/ec2-user/
+tar xjf /mnt/s3/config/configs.tar.bz2 -C /home/ec2-user/
 
 # Move old php-fpm config because Ajenti auto generates. This will setup php-fpm
 mv /etc/php-fpm.conf /etc/php-fpm.conf.bak
 
-cp /home/ec2-user/$AJ/php-fpm.conf /etc/php-fpm.conf
+cp /home/ec2-user/$CFG/php-fpm.conf /etc/php-fpm.conf
 service ajenti restart
 
 sleep 10s
 ajenti-ipc v apply
 
 sleep 10s
-ajenti-ipc v import /home/ec2-user/$AJ/website.json
+ajenti-ipc v import /home/ec2-user/$CFG/website.json
 sleep 2s
-ajenti-ipc v import /home/ec2-user/$AJ/rainloop.json
+ajenti-ipc v import /home/ec2-user/$CFG/rainloop.json
 sleep 2s
-ajenti-ipc v import /home/ec2-user/$AJ/nextcloud.json
+ajenti-ipc v import /home/ec2-user/$CFG/nextcloud.json
 sleep 2s
 ajenti-ipc v apply
 

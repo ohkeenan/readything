@@ -45,7 +45,7 @@
     },
     "domains": [
         {
-            "domain": "cloud.example.com"
+            "domain": "cloud.ohkeenan.com"
         }
     ],
     "root": "/srv/nextcloud",

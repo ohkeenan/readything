@@ -26,16 +26,24 @@ Created for AWS EC2 Amazon Linux. Documentation is quite rough, sorry! I'm happy
 
 ### To do
 + Create initialization routine for fresh AWS account
-+ Un-hardcode stuff. Variables/input for AWS subnets and security groups
-+ Add checks and get rid of weird workarounds (eg sleeps)
++ Un-hardcode more stuff
+  + Move variables from getopts to "server.conf" with -c GETOPTS to specify
++ Userdata connect to Chef server because:
+  + Bash script should be ported to recipes & cookbook
++ Add more checks and get rid of weird workarounds (eg sleeps)
 + LetsEncrypt SSL w/ NGINX
 + Monitoring
 + Mail with SES
  + [Integrate SES with sendmail]( http://docs.aws.amazon.com/ses/latest/DeveloperGuide/sendmail.html) OR
  + [Integrate Exim with SES](http://docs.aws.amazon.com/ses/latest/DeveloperGuide/exim.html)
 
+### Notes / FAQ
++ If using a chef server, it must already be configured
+
+
 ### Resources used
 - [Markdown Cheat Sheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
+- [Chef Client.rb](https://docs.chef.io/config_rb_client.html)
 - [EC2 Best Practices](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-best-practices.html)
 - [Writing IAM Policies to grant specific folder access on Amazon S3 buckets](https://aws.amazon.com/blogs/security/writing-iam-policies-grant-access-to-user-specific-folders-in-an-amazon-s3-bucket/)
 - [IAM Roles for EC2](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html)

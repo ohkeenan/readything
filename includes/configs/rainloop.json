@@ -41,7 +41,7 @@
     }, 
     "domains": [
         {
-            "domain": "mail.example.com"
+            "domain": "mail.ohkeenan.com"
         }
     ], 
     "root": "/srv/rainloop/", 

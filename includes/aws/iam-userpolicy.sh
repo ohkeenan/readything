@@ -29,7 +29,7 @@ cat > $OUTPUT/s3-$CLIENT.json <<- EOF
             ],
             "Effect": "Allow",
             "Resource": [
-                "arn:aws:s3:::nw-rt"
+                "arn:aws:s3:::$BUCKET"
             ],
             "Condition": {
                 "StringLike": {
@@ -46,7 +46,7 @@ cat > $OUTPUT/s3-$CLIENT.json <<- EOF
             ],
             "Effect": "Allow",
             "Resource": [
-                "arn:aws:s3:::nw-rt/users/$CLIENTSEC/*"
+                "arn:aws:s3:::$BUCKET/users/$CLIENTSEC/*"
             ]
         }
     ]
