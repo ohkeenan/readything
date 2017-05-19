@@ -4,11 +4,13 @@
 SCRIPT=$(readlink -f $0)
 DIR=`dirname $SCRIPT`
 
-# Chef
-. "$DIR/includes/chef.sh"
-
 # includes variables
 . "$DIR/includes/variables.sh"
+
+[ -z "$CONFIG" ] && echo "Using default configuration file default.cfg" || customCfg
+
+# Chef
+. "$DIR/includes/chef.sh"
 
 # includes imports
 . "$DIR/includes/imports.sh"

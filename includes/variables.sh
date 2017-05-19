@@ -22,7 +22,7 @@ VERBOSE=0
 OPTIND=1
 
 # Get arguments/options
-while getopts hvk:s:n:d:b: opt; do
+while getopts hvk:s:n:d:b:c: opt; do
     case $opt in
         h)
             show_help
@@ -40,6 +40,7 @@ while getopts hvk:s:n:d:b: opt; do
             ;;
         b)  BUCKET="$OPTARG"
             ;;
+        c)  CONFIG="$OPTARG"
         *)
             show_help >&2
             exit 1
@@ -71,6 +72,10 @@ mkdir -p $OUTPUTCFG
 
 function randm() {
   echo $(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
+}
+
+function customCfg() {
+  . "$DIR/$CONFIG"
 }
 
 MYSQL_ROOT_PASSWORD=$(randm)
