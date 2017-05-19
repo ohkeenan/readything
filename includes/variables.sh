@@ -1,17 +1,8 @@
 #!/bin/bash
 
-# Functions first
+# Make random stuff
 randm() {
   echo $(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
-}
-
-customCfg() {
-  echo "Using custom configuration file $CONFIG"
-  source "$DIR/$CONFIG"
-}
-defaultCfg() {
-  echo "Using default configuration file default.cfg"
-  source "$DIR/default.cfg"
 }
 
 # Usage info
@@ -50,7 +41,13 @@ while getopts hvc: opt; do
 done
 shift "$((OPTIND-1))" # Shift off the options and optional --.
 
-[ -z "$CONFIG" ] && defaultCfg || customCfg
+if [ -z "$CONFIG" ]; then
+  echo "Using default configuration file default.cfg"
+  source "$DIR/default.cfg"
+else
+  echo "Using custom configuration file $CONFIG"
+  source "$DIR/$CONFIG"
+fi
 
 if [[ -z "$DOMAIN" || -z "$KEY" || -z "$SGROUP" || -z "$SUBNET" || -z "$BUCKET" ]];
   then
@@ -60,11 +57,12 @@ if [[ -z "$DOMAIN" || -z "$KEY" || -z "$SGROUP" || -z "$SUBNET" || -z "$BUCKET" 
     [ -z "$SGROUP" ] && echo -n "Security Group, "
     [ -z "$SUBNET" ] && echo -n "Subnet, "
     [ -z "$BUCKET" ] && echo -n "Bucket, "
-    echo -e "required! ***\e[0m\n"
+    echo -e "required! Check $CONFIG file***\e[0m\n"
     show_help
     exit 1
 fi
 
+# Set variables
 CLIENT=$(echo -n "$DOMAIN" | cut -d. -f1)
 CLIENTSEC=$(echo -n "$CLIENT" | md5sum | cut -d ' ' -f1)
 OUTPUT="$DIR/output/$CLIENT"
