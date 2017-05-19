@@ -7,8 +7,6 @@ DIR=`dirname $SCRIPT`
 # includes variables
 . "$DIR/includes/variables.sh"
 
-[ -z "$CONFIG" ] && echo "Using default configuration file default.cfg" || customCfg
-
 # Chef
 . "$DIR/includes/chef.sh"
 

@@ -1,17 +1,27 @@
 #!/bin/bash
 
+# Functions first
+randm() {
+  echo $(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
+}
+
+customCfg() {
+  echo "Using custom configuration file $CONFIG"
+  source "$DIR/$CONFIG"
+}
+defaultCfg() {
+  echo "Using default configuration file default.cfg"
+  source "$DIR/default.cfg"
+}
+
 # Usage info
 show_help() {
 cat << EOF
-Usage: ${0##*/} [-hv] [-k KEY] [-s SGROUP] [-n SUBNET] [-d DOMAIN] [-b BUCKET]...
+Usage: ${0##*/} [-hv] [-c CONFIG]...
 Create EC2 instance
 
     -h          display this help and exit
-    -k KEY      keyfile (exclude .pem)
-    -s SGROUP   security group id
-    -n SUBNET   subnet id
-    -d DOMAIN   domain (eg ohkeenan.com)
-    -b BUCKET   bucket (eg nw-rt)
+    -c config   use specific config file located in directory with readything.sh
     -v          verbose mode. Can be used multiple times for increased
                 verbosity. (does nothing yet)
 EOF
@@ -22,7 +32,7 @@ VERBOSE=0
 OPTIND=1
 
 # Get arguments/options
-while getopts hvk:s:n:d:b:c: opt; do
+while getopts hvc: opt; do
     case $opt in
         h)
             show_help
@@ -30,17 +40,8 @@ while getopts hvk:s:n:d:b:c: opt; do
             ;;
         v)  VERBOSE=$((VERBOSE+1))
             ;;
-        k)  KEY="$OPTARG"
-            ;;
-        s)  SGROUP="$OPTARG"
-            ;;
-        n)  SUBNET="$OPTARG"
-            ;;
-        d)  DOMAIN="$OPTARG"
-            ;;
-        b)  BUCKET="$OPTARG"
-            ;;
         c)  CONFIG="$OPTARG"
+            ;;
         *)
             show_help >&2
             exit 1
@@ -48,6 +49,8 @@ while getopts hvk:s:n:d:b:c: opt; do
     esac
 done
 shift "$((OPTIND-1))" # Shift off the options and optional --.
+
+[ -z "$CONFIG" ] && defaultCfg || customCfg
 
 if [[ -z "$DOMAIN" || -z "$KEY" || -z "$SGROUP" || -z "$SUBNET" || -z "$BUCKET" ]];
   then
@@ -69,14 +72,6 @@ CFG="rt"
 OUTPUTCFG="$OUTPUT/$CFG"
 keepMe="$OUTPUT/credentials.txt"
 mkdir -p $OUTPUTCFG
-
-function randm() {
-  echo $(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
-}
-
-function customCfg() {
-  . "$DIR/$CONFIG"
-}
 
 MYSQL_ROOT_PASSWORD=$(randm)
 MYSQL_NEXTCLOUD_PASSWORD=$(randm)
