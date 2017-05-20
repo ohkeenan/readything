@@ -43,6 +43,7 @@ Created for AWS EC2 Amazon Linux. Documentation is quite rough, sorry! I'm happy
 
 ### Resources used
 - [Markdown Cheat Sheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
+- [Bootstrapping Chef for Autoscaling instances](https://devops.com/bootstrapping-chef-or-whatever-for-autoscaled-ec2-instances/)
 - [Chef Client.rb](https://docs.chef.io/config_rb_client.html)
 - [EC2 Best Practices](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-best-practices.html)
 - [Writing IAM Policies to grant specific folder access on Amazon S3 buckets](https://aws.amazon.com/blogs/security/writing-iam-policies-grant-access-to-user-specific-folders-in-an-amazon-s3-bucket/)

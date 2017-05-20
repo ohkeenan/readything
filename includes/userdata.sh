@@ -89,6 +89,12 @@ echo "It works!" > /srv/$DOMAIN/index.html
 # Install websites to Ajenti
 tar xjf /mnt/s3/config/configs.tar.bz2 -C /home/ec2-user/
 
+# Chef - move config and validator
+mv /home/ec2-user/$CFG/chef/* /etc/chef/
+
+# Chef - connect to server
+chef-client
+
 # Move old php-fpm config because Ajenti auto generates. This will setup php-fpm
 mv /etc/php-fpm.conf /etc/php-fpm.conf.bak
 
