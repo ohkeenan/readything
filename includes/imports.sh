@@ -1,6 +1,7 @@
 #!/bin/bash
 cp -R $DIR/includes/configs/* $OUTPUTCFG/
-#cp -R $DIR/includes/chef/* $OUTPUTCFG/
+
+echo "" > $DIR/includes/configs/chef/validator.pem
 
 # change ohkeenan.com to new domain
 find $OUTPUTCFG -type f -exec sed -i "s/ohkeenan.com/$DOMAIN/g" {} \;
