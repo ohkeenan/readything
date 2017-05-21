@@ -10,8 +10,7 @@ else
   fi
 
   echo "Using Chef server url $CHEF_SERVER."
-  [ -s $DIR/includes/configs/chef/validator.pem ] || echo "Validator.pem is empty so Chef setup will not succeed."
-
+  [ -s $DIR/includes/configs/chef/validator.pem ] || printf '%s' "$CHEF_VALIDATOR_KEY" > $DIR/includes/configs/chef/validator.pem
 fi
 
 
