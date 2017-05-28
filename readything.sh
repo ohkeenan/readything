@@ -22,6 +22,9 @@ DIR=`dirname $SCRIPT`
 # Generate user policies
 . "$DIR/includes/aws/iam-userpolicy.sh"
 
+# Generate the vault.json
+. "$DIR/includes/vaultdata.sh"
+
 
 # Create Role
 # Check if Role Already Exists
@@ -97,5 +100,11 @@ MySQL user 'root' password is $MYSQL_ROOT_PASSWORD
 NextCloud user 'admin' password is $NEXTCLOUD_ADMIN_PASSWORD
 -------------------------------------------------------------------
 EOF
+
+# sleep for now - check with chef server later
+echo "sleeping while instance is brought up and connected to chef server"
+sleep 60s
+
+knife vault create credentials $CLIENT -A "$CHEF_ADMINS,$CLIENT" -J $OUTPUT/vault.json
 
 echo -e "\e[32mReadyThing completed. Session data is located at $keepMe\e[0m"

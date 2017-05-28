@@ -10,7 +10,8 @@ else
   fi
 
   echo "Using Chef server url $CHEF_SERVER."
-  [ -s $DIR/includes/configs/chef/validator.pem ] || printf '%s' "$CHEF_VALIDATOR_KEY" > $DIR/includes/configs/chef/validator.pem
+  mkdir -p $OUTPUTCFG/chef
+  printf '%s' "$CHEF_VALIDATOR_KEY" > $OUTPUTCFG/chef/validator.pem
 fi
 
 
